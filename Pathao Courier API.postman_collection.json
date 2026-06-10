@@ -1,0 +1,178 @@
+{
+  "info": {
+    "name": "Pathao Courier API",
+    "description": "Pathao Courier Merchant API Integration\n\nBase URL: {{base_url}}\nToken auto-managed by the system.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api/v1/couriers",
+      "type": "string"
+    },
+    {
+      "key": "consignment_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "city_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "zone_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"store_id\": 1,\n  \"merchant_order_id\": \"ORDER-12345\",\n  \"recipient_name\": \"Demo Recipient\",\n  \"recipient_phone\": \"017XXXXXXXX\",\n  \"recipient_address\": \"House 123, Road 4, Sector 10, Uttara, Dhaka-1230, Bangladesh\",\n  \"delivery_type\": 48,\n  \"item_type\": 2,\n  \"special_instruction\": \"Need to Delivery before 5 PM\",\n  \"item_quantity\": 1,\n  \"item_weight\": \"0.5\",\n  \"item_description\": \"this is a Cloth item, price- 3000\",\n  \"amount_to_collect\": 900\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": ["{{base_url}}"],
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "Create Bulk Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"store_id\": 1,\n      \"merchant_order_id\": \"ORDER-001\",\n      \"recipient_name\": \"Demo Recipient One\",\n      \"recipient_phone\": \"017XXXXXXXX\",\n      \"recipient_address\": \"House 123, Road 4, Sector 10, Uttara, Dhaka-1230, Bangladesh\",\n      \"delivery_type\": 48,\n      \"item_type\": 2,\n      \"special_instruction\": \"Do not put water\",\n      \"item_quantity\": 2,\n      \"item_weight\": \"0.5\",\n      \"amount_to_collect\": 100,\n      \"item_description\": \"This is a Cloth item, price- 3000\"\n    },\n    {\n      \"store_id\": 1,\n      \"merchant_order_id\": \"ORDER-002\",\n      \"recipient_name\": \"Demo Recipient Two\",\n      \"recipient_phone\": \"015XXXXXXXX\",\n      \"recipient_address\": \"House 3, Road 14, Dhanmondi, Dhaka-1205, Bangladesh\",\n      \"delivery_type\": 48,\n      \"item_type\": 2,\n      \"special_instruction\": \"Deliver before 5 pm\",\n      \"item_quantity\": 1,\n      \"item_weight\": \"0.5\",\n      \"amount_to_collect\": 200,\n      \"item_description\": \"Food Item, Price 1000\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/bulk",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "bulk"]
+            }
+          }
+        },
+        {
+          "name": "Get Order Info / Track",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/orders/{{consignment_id}}/info",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "{{consignment_id}}", "info"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stores",
+      "item": [
+        {
+          "name": "Get Stores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/stores",
+              "host": ["{{base_url}}"],
+              "path": ["stores"]
+            }
+          }
+        },
+        {
+          "name": "Create Store",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Demo Store\",\n  \"contact_name\": \"Test Merchant\",\n  \"contact_number\": \"017XXXXXXXX\",\n  \"secondary_contact\": \"015XXXXXXXX\",\n  \"otp_number\": \"017XXXXXXXX\",\n  \"address\": \"House 123, Road 4, Sector 10, Uttara, Dhaka-1230, Bangladesh\",\n  \"city_id\": 1,\n  \"zone_id\": 298,\n  \"area_id\": 37\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/stores",
+              "host": ["{{base_url}}"],
+              "path": ["stores"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "Get Cities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cities",
+              "host": ["{{base_url}}"],
+              "path": ["cities"]
+            }
+          }
+        },
+        {
+          "name": "Get Zones by City",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cities/{{city_id}}/zones",
+              "host": ["{{base_url}}"],
+              "path": ["cities", "{{city_id}}", "zones"]
+            }
+          }
+        },
+        {
+          "name": "Get Areas by Zone",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/zones/{{zone_id}}/areas",
+              "host": ["{{base_url}}"],
+              "path": ["zones", "{{zone_id}}", "areas"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Price Calculation",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"store_id\": \"1\",\n  \"item_type\": 2,\n  \"delivery_type\": 48,\n  \"item_weight\": 0.5,\n  \"recipient_city\": 1,\n  \"recipient_zone\": 298\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/price-calculation",
+          "host": ["{{base_url}}"],
+          "path": ["price-calculation"]
+        }
+      }
+    }
+  ]
+}
